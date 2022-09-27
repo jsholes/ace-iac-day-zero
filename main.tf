@@ -38,31 +38,31 @@ module "aws_transit_1" {
 
 # AWS Spoke Modules
 module "aws_spoke_1" {
-  source          = "terraform-aviatrix-modules/mc-spoke/aviatrix"
-  version         = "1.2.3"
-  cloud           = "AWS"
-  account         = var.aws_account_name
-  region          = var.aws_spoke1_region
-  name            = var.aws_spoke1_name
-  cidr            = var.aws_spoke1_cidr
-  instance_size   = var.aws_spoke_instance_size
-  ha_gw           = var.ha_enabled
-  network_domain  = aviatrix_segmentation_network_domain.BU1.domain_name
-  transit_gw      = module.aws_transit_1.transit_gateway.gw_name
+  source         = "terraform-aviatrix-modules/mc-spoke/aviatrix"
+  version        = "1.2.3"
+  cloud          = "AWS"
+  account        = var.aws_account_name
+  region         = var.aws_spoke1_region
+  name           = var.aws_spoke1_name
+  cidr           = var.aws_spoke1_cidr
+  instance_size  = var.aws_spoke_instance_size
+  ha_gw          = var.ha_enabled
+  network_domain = aviatrix_segmentation_network_domain.BU1.domain_name
+  transit_gw     = module.aws_transit_1.transit_gateway.gw_name
 }
 
 module "azure_spoke_2" {
-  source          = "terraform-aviatrix-modules/mc-spoke/aviatrix"
-  version         = "1.2.3"
-  cloud           = "Azure"
-  account         = aviatrix_account.azure_account.account_name
-  region          = var.azure_spoke2_region
-  name            = var.azure_spoke2_name
-  cidr            = var.azure_spoke2_cidr
-  instance_size   = var.azure_spoke_instance_size
-  ha_gw           = var.ha_enabled
-  network_domain  = aviatrix_segmentation_network_domain.BU2.domain_name
-  transit_gw      = module.aws_transit_1.transit_gateway.gw_name
+  source         = "terraform-aviatrix-modules/mc-spoke/aviatrix"
+  version        = "1.2.3"
+  cloud          = "Azure"
+  account        = aviatrix_account.azure_account.account_name
+  region         = var.azure_spoke2_region
+  name           = var.azure_spoke2_name
+  cidr           = var.azure_spoke2_cidr
+  instance_size  = var.azure_spoke_instance_size
+  ha_gw          = var.ha_enabled
+  network_domain = aviatrix_segmentation_network_domain.BU2.domain_name
+  transit_gw     = module.aws_transit_1.transit_gateway.gw_name
 }
 
 # Multi-Cloud Segmentation
@@ -78,7 +78,7 @@ resource "aviatrix_segmentation_network_domain" "BU2" {
     module.aws_transit_1
   ]
 }
-  
+
 /* resource "aviatrix_segmentation_network_domain_connection_policy" "BU1_BU2" {
   domain_name_1 = "BU1"
   domain_name_2 = "BU2"
